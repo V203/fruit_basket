@@ -1,0 +1,10 @@
+.body{
+    background-color: rgb(24, 9, 9);
+}
+
+.container{
+    border-style: ridge;
+    border-color: blueviolet;
+    max-width: 70%;
+    min-height: 100px;
+}

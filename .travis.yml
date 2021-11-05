@@ -1,0 +1,16 @@
+{
+  "language": "node_js",
+  "env": [
+    "DATABASE_URL=postgresql://postgres@localhost:5432/fruitdb_test"
+  ],
+  "node_js": [
+    "12"
+  ],
+  "before_script": [
+    "psql -c 'create database  fruitdb_test;' -U postgres",
+    "psql -U postgres -d fruidb_test -a -f fruitdb_test.sql"
+  ],
+  "services": [
+    "postgresql"
+  ]
+}

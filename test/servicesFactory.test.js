@@ -17,7 +17,7 @@ describe("The fruits basket test's", async () => {
     })
 
 
-    it("This function should be able to insert a pear into  6 times and return the of 6 pears in the basket", async () => {
+    it("This function should be able to insert a pear into the basket 6 times and return quantity of 6 pears in the basket", async () => {
         let serve = ServicesFactory(pool)
 
         await serve.addFruit('pear',  3.00 );
@@ -27,11 +27,9 @@ describe("The fruits basket test's", async () => {
         await serve.addFruit('pear',  3.00);
         await serve.addFruit('pear',  3.00);
 
-        let actual = await serve.getAllfruits();
-        
-        actual = actual['0'].fruit_qty
+        let actual = await serve.getAllfruits();        
         let expected = "6";
-
+        
         assert.equal(expected, actual)
     });
 
@@ -45,39 +43,57 @@ describe("The fruits basket test's", async () => {
         await serve.addFruit('grape',3.00);
 
         let actual = await serve.getSpecificFruit('orange');
-        let expected = [{fruit_name: 'orange',fruit_price: 2,fruit_qty: 3}]        
+        let expected = 3     
         assert.deepEqual(expected, actual);
 
     });
 
-    it("We should be able total cost  of a specific fruit type in the basket", async() => {
+    it("We should be able get total cost  of a specific fruit type in the basket", async() => {
         let serve = ServicesFactory(pool);
-
 
         await serve.addFruit('orange','2.00');
         await serve.addFruit('grape','3.00');
         await serve.addFruit('grape','3.00');
 
-        
-
         let actual = await serve.getSpecificFruitAmount('grape');
-        let expected=6
+        let expected = 6
 
         assert.equal(expected, actual);
 
     });
 
-    it("We should be able to get the price of all the the fruits in the basket which is equal 10",async () => {
+    it("We should be able to get the price of all the the fruits in the basket which is equal 18",async () => {
         let serve = ServicesFactory(pool)
 
         await serve.addFruit('orange','2.00');
         await serve.addFruit('orange','2.00');
+        await serve.addFruit('orange','2.00');
         await serve.addFruit('grape','3.00');
+        await serve.addFruit('grape','3.00');
+        await serve.addFruit('grape','3.00');
+        await serve.addFruit('grape','3.00');
+        let actual = await serve.getTotalSumOfAllFruits()
+        let expected = 18
+        assert.equal(expected, actual)
+
+    });
+
+
+    it("We should be able to retrieve all the fruit names in the basket",async () => {
+        let serve = ServicesFactory(pool)
+
+        await serve.addFruit('orange','2.00');
+        await serve.addFruit('pear','2.00');
+        await serve.addFruit('naartjie','1.00');
+        await serve.addFruit('grape','3.00');
+        await serve.addFruit('watermelon','6.00');
+        await serve.addFruit('grape fruit','2.00');
         await serve.addFruit('grape','3.00');
 
-        let actual = await serve.getTotalSumOfAllFruits()
-        let expected = 10
-        assert.equal(expected, actual)
+        let actual = await serve.getAllFruitNames()
+        let expected =  ['orange','pear','naartjie', 'watermelon','grape fruit','grape']
+
+        assert.deepEqual(expected, actual)
 
     });
 
